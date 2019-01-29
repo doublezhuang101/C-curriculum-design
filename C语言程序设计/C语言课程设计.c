@@ -50,3 +50,7 @@ void typein()
 {
 
 }
+void exit()
+{
+
+}
