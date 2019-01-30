@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #define line 17
+#define MAX 50//学生人数
 void square(void);//打印line数量个方框
 void menu(void);//开始菜单
 void typein(void);//学生信息录入
@@ -8,8 +9,8 @@ void rank1(void);//冒泡排序按学号
 void rank2(void);//选择排序按高数成绩排序
 void rank3(void);//快速排序按英语成绩排序
 void rank4(void);//插入排序按C语言成绩排序
-void rank5(void);//
-void rank6(void);//
+void rank5(void);//快速排序按体育成绩排序
+void rank6(void);//快速排序按课程设计成绩排序
 void main()
 {
 	printf("	学生信息信息管理系统\n");
@@ -17,6 +18,20 @@ void main()
 	menu();
 	getchar();
 }
+typedef struct
+{
+	long int number;
+	char name[20];
+	char sex[9];
+	int age;
+	char phone;
+	int score1;//数学
+	int score2;//英语
+	int score3;//C语言
+	int score4;//体育
+	int score5;//课程设计
+}STUDENT;
+STUDENT student[MAX];
 void square(void)
 {
 	int i = 0;
@@ -56,7 +71,54 @@ void typein()
 {
 
 }
-
+void rank1(void)
+{
+	int i = 0;
+	int c = 0;
+	int flag = 0;
+	for (i = n - 1; i > 0; i--)
+	{
+		flag = 0;
+		for (j = 0; j < i; j++)
+		{
+			if (a[j] > a[j + 1])
+			{
+				/*swap(a[j], a[j + 1]);*/
+				c = a[j];
+				a[j] = a[j + 1];
+				a[j + 1] = c;
+				flag = 1;
+			}
+		}
+		if (flag == 0) break;
+	}
+	for (i = 0; i < n; i++)
+		printf("%d ", a[i]);
+}
+void rank2()
+{
+	int i, j;    //定义变量为基本整型
+	i = 0;    //将每组首个元素赋给i
+	j = ;    //将每组末尾元素赋给j
+	s[0] = s[max];    //设置基准值
+	while (i < j)
+	{
+		while (i < j&&s[0] < s[j])
+			j--;    //位置左移
+		if (i < j)
+		{
+			s[i] = s[j];    //将s[j]放到s[i]的位置上
+			i++;    //位置右移
+		}
+		while (i < j&&s[i] <= s[0])
+			i++;    //位置左移
+		if (i < j)
+		{
+			s[j] = s[i];    //将大于基准值的s[j]放到s[i]位置
+			j--;    //位置左移
+		}
+	}
+}
 void exit()
 {
 
