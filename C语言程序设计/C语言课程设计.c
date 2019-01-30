@@ -71,7 +71,7 @@ void typein()
 {
 
 }
-void rank1(void)
+void rank1(void)//冒泡排序
 {
 	int i = 0;
 	int c = 0;
@@ -95,7 +95,24 @@ void rank1(void)
 	for (i = 0; i < n; i++)
 		printf("%d ", a[i]);
 }
-void rank2()
+void rank2()//选择排序
+{
+	int i, j;
+	for (i = 0; i < n; i++)
+	{
+		int min = i; /*每次循环后将第i小的元素放好*/
+		//记录第i个到底size - 1个元素中，最小的元素的下标
+		for (j = i + 1; j < n; j++)
+		{
+			if (a[j] < a[min])
+				min = j;
+		}
+		//下面将第i小的元素放在第i个位置上，并将原来第i个位置的元素挪到后面
+		int c = a[i];
+		a[i] = a[min];
+		a[min] = c;
+}
+void rank3()//快速排序
 {
 	int i, j;    //定义变量为基本整型
 	i = 0;    //将每组首个元素赋给i
