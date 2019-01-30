@@ -4,6 +4,12 @@
 void square(void);//打印line数量个方框
 void menu(void);//开始菜单
 void typein(void);//学生信息录入
+void rank1(void);//冒泡排序按学号
+void rank2(void);//选择排序按高数成绩排序
+void rank3(void);//快速排序按英语成绩排序
+void rank4(void);//插入排序按C语言成绩排序
+void rank5(void);//
+void rank6(void);//
 void main()
 {
 	printf("	学生信息信息管理系统\n");
@@ -50,6 +56,7 @@ void typein()
 {
 
 }
+
 void exit()
 {
 
