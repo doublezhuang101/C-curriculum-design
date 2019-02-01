@@ -13,13 +13,12 @@ void rank5(void);//快速排序按体育成绩排序
 void rank6(void);//快速排序按课程设计成绩排序
 void main()
 {
-	char c;
 	square();
 	printf("	学生信息信息管理系统\n");
 	printf("	制作人;苗壮\n");
 	square();
-	printf("	请按任意键开始程序\n");
-	c=getch();
+	printf("\t");
+	system("pause");
 	system("CLS");
 	menu();
 	getchar();
@@ -78,72 +77,73 @@ void typein()
 {
 
 }
-void rank1(void)//冒泡排序
-{
-	int i = 0;
-	int c = 0;
-	int flag = 0;
-	for (i = n - 1; i > 0; i--)
-	{
-		flag = 0;
-		for (j = 0; j < i; j++)
-		{
-			if (a[j] > a[j + 1])
-			{
-				/*swap(a[j], a[j + 1]);*/
-				c = a[j];
-				a[j] = a[j + 1];
-				a[j + 1] = c;
-				flag = 1;
-			}
-		}
-		if (flag == 0) break;
-	}
-	for (i = 0; i < n; i++)
-		printf("%d ", a[i]);
-}
-void rank2()//选择排序
-{
-	int i, j;
-	for (i = 0; i < n; i++)
-	{
-		int min = i; /*每次循环后将第i小的元素放好*/
-		//记录第i个到底size - 1个元素中，最小的元素的下标
-		for (j = i + 1; j < n; j++)
-		{
-			if (a[j] < a[min])
-				min = j;
-		}
-		//下面将第i小的元素放在第i个位置上，并将原来第i个位置的元素挪到后面
-		int c = a[i];
-		a[i] = a[min];
-		a[min] = c;
-}
-void rank3()//快速排序
-{
-	int i, j;    //定义变量为基本整型
-	i = 0;    //将每组首个元素赋给i
-	j = ;    //将每组末尾元素赋给j
-	s[0] = s[max];    //设置基准值
-	while (i < j)
-	{
-		while (i < j&&s[0] < s[j])
-			j--;    //位置左移
-		if (i < j)
-		{
-			s[i] = s[j];    //将s[j]放到s[i]的位置上
-			i++;    //位置右移
-		}
-		while (i < j&&s[i] <= s[0])
-			i++;    //位置左移
-		if (i < j)
-		{
-			s[j] = s[i];    //将大于基准值的s[j]放到s[i]位置
-			j--;    //位置左移
-		}
-	}
-}
-void exit()
-{
-
-}
+//void rank1(void)//冒泡排序
+//{
+//	int i = 0;
+//	int c = 0;
+//	int flag = 0;
+//	for (i = n - 1; i > 0; i--)
+//	{
+//		flag = 0;
+//		for (j = 0; j < i; j++)
+//		{
+//			if (a[j] > a[j + 1])
+//			{
+//				/*swap(a[j], a[j + 1]);*/
+//				c = a[j];
+//				a[j] = a[j + 1];
+//				a[j + 1] = c;
+//				flag = 1;
+//			}
+//		}
+//		if (flag == 0) break;
+//	}
+//	for (i = 0; i < n; i++)
+//		printf("%d ", a[i]);
+//}
+//void rank2(void)//选择排序
+//{
+//	int i, j;
+//	for (i = 0; i < n; i++)
+//	{
+//		int min = i; /*每次循环后将第i小的元素放好*/
+//		//记录第i个到底size - 1个元素中，最小的元素的下标
+//		for (j = i + 1; j < n; j++)
+//		{
+//			if (a[j] < a[min])
+//				min = j;
+//		}
+//		//下面将第i小的元素放在第i个位置上，并将原来第i个位置的元素挪到后面
+//		int c = a[i];
+//		a[i] = a[min];
+//		a[min] = c;
+//	}
+//}
+//void rank3(void)//快速排序
+//{
+//	int i, j;    //定义变量为基本整型
+//	i = 0;    //将每组首个元素赋给i
+//	j = ;    //将每组末尾元素赋给j
+//	s[0] = s[max];    //设置基准值
+//	while (i < j)
+//	{
+//		while (i < j&&s[0] < s[j])
+//			j--;    //位置左移
+//		if (i < j)
+//		{
+//			s[i] = s[j];    //将s[j]放到s[i]的位置上
+//			i++;    //位置右移
+//		}
+//		while (i < j&&s[i] <= s[0])
+//			i++;    //位置左移
+//		if (i < j)
+//		{
+//			s[j] = s[i];    //将大于基准值的s[j]放到s[i]位置
+//			j--;    //位置左移
+//		}
+//	}
+//}
+//void exit()
+//{
+//
+//}
