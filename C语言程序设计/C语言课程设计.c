@@ -13,8 +13,14 @@ void rank5(void);//快速排序按体育成绩排序
 void rank6(void);//快速排序按课程设计成绩排序
 void main()
 {
+	char c;
+	square();
 	printf("	学生信息信息管理系统\n");
 	printf("	制作人;苗壮\n");
+	square();
+	printf("	请按任意键开始程序\n");
+	c=getch();
+	system("CLS");
 	menu();
 	getchar();
 }
@@ -42,6 +48,7 @@ void square(void)
 void menu()
 {
 	int choice = 0;
+	printf("\n");
 	square();
 	printf("	请选择功能:\n");
 	printf("	1.录入学生信息\n");
