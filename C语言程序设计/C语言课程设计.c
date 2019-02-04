@@ -126,7 +126,7 @@ void rank1(void)//冒泡排序
 				student[j + 1].number = c;
 				flag = 1;
 			}
-		}
+		}	
 		if (flag == 0) break;	
 	}
 	printf("\n学号\t姓名\t性别\t年龄\t手机号码   高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
@@ -187,5 +187,5 @@ void rank3(void)//快速排序
 }
 void exit()
 {
-
+	我摸
 }
