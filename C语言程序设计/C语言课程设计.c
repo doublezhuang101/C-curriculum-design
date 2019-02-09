@@ -10,6 +10,7 @@ void typein(void);//学生信息录入
 void save(void);//保存学生信息
 void deletemenu(void);//删除学生信息菜单
 void delete_number(void);//按学号删除学生信息
+void revise(void);//修改学生信息
 void rank1(void);//冒泡排序按学号
 void rank2(void);//选择排序按高数成绩排序
 void rank3(void);//快速排序按英语成绩排序
@@ -17,6 +18,7 @@ void kuaipai(void);//快速排序主函数
 void rank4(void);//插入排序按C语言成绩排序
 void rank5(void);//快速排序按体育成绩排序
 void rank6(void);//快速排序按课程设计成绩排序
+void EXIT(void);//退出函数
 int count = 0;
 void main()
 {
@@ -79,6 +81,9 @@ void menu()
 		break;
 	case 3:
 		deletemenu();
+		break;
+	case 9:
+		EXIT();
 		break;
 	default:
 		system("CLS");
@@ -168,6 +173,10 @@ void delete_number(void)
 		deletemenu();
 	}
 }
+void revise(void)
+{
+
+}
 void rank1(void)//冒泡排序
 {
 	int i = 0, j = 0, c = 0;
@@ -229,7 +238,29 @@ void kuaipai()
 {
 
 }
-void exit()
+void EXIT(void)
 {
-	
+	int a;
+	square();
+	printf("	确认要退出本系统吗？\n\t输入数字进行确认\n");
+	printf("	1.确认退出\n");
+	printf("	2.返回上一级菜单\n");
+	square();
+	printf("	请输入数字进行选择：");
+	scanf("%d", &a);
+	getchar();
+	switch (a)
+	{
+	case 1:
+		printf("	感谢你的使用，谢谢！\n");
+		system("pause");
+		exit(0);
+		break;
+	case 2:
+		menu();
+		break;
+	default:
+		printf("	输入错误请重新输入:");
+		EXIT();
+	}
 }
