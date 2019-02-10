@@ -11,10 +11,11 @@ void save(void);//保存学生信息
 void deletemenu(void);//删除学生信息菜单
 void delete_number(void);//按学号删除学生信息
 void revise(void);//修改学生信息
+void rank_menu(void);//排序菜单
 void rank1(void);//冒泡排序按学号
 void rank2(void);//选择排序按高数成绩排序
 void rank3(void);//快速排序按英语成绩排序
-void kuaipai(void);//快速排序主函数
+void quick_sort(void);//快速排序主函数
 void rank4(void);//插入排序按C语言成绩排序
 void rank5(void);//快速排序按体育成绩排序
 void rank6(void);//快速排序按课程设计成绩排序
@@ -63,10 +64,9 @@ void menu()
 	printf("	3.删除学生信息\n");
 	printf("	4.修改学生信息\n");
 	printf("	5.学生成绩排序（降序）\n");
-	printf("	6.学生成绩排序（升序）\n");
-	printf("	7.显示学生信息\n");
-	printf("	8.查找学生信息\n");
-	printf("	9.退出系统\n");
+	printf("	6.显示学生信息\n");
+	printf("	7.查找学生信息\n");
+	printf("	8.退出系统\n");
 	square();
 	printf("	请输入数字进行功能选择:");
 	scanf("%d",&choice);
@@ -82,7 +82,13 @@ void menu()
 	case 3:
 		deletemenu();
 		break;
-	case 9:
+	case 4:
+		revise();
+		break;
+	case 5:
+		rank_menu();
+		break;
+	case 8:
 		EXIT();
 		break;
 	default:
@@ -148,7 +154,8 @@ void deletemenu(void)
 		menu();
 		break;
 	default:
-		printf("输入错误，请重新输入");
+		system("CLS");
+		printf("	输入错误，请重新输入\n");
 		deletemenu();
 	}
 }
@@ -176,6 +183,48 @@ void delete_number(void)
 void revise(void)
 {
 
+}
+void rank_menu()
+{
+	int choice;
+	square();
+	printf("	请输入数字进行选择:\n");
+	printf("	1.按学号排序\n");
+	printf("	2.按高等数学成绩排序\n");
+	printf("	3.按英语成绩排序\n");
+	printf("	4.按C语言成绩排序\n");
+	printf("	5.按体育成绩排序\n");
+	printf("	6.按课程设计成绩排序\n");
+	suqure();
+	printf("	请输入数字:");
+	scanf("%d", &choice);
+	getchar();
+	switch (choice)
+	{
+	case 1:
+		rank1();
+		break;
+	case 2:
+		rank2();
+		break;
+	case 3:
+		ranke3();
+		break;
+	case 4:
+		rank4();
+		break;
+	case 5:
+		rank5();
+		break;
+	case 6:
+		rank6();
+		break;
+	default:
+		system("CLS");
+		printf("	输入错误！请重新输入\n");
+		rank_menu();
+		break;
+	}
 }
 void rank1(void)//冒泡排序
 {
@@ -234,7 +283,7 @@ void rank3(void)//快速排序
 		printf("\n%ld\t%s\t%s\t%d\t%s   %6d   %4d   %4d   %4d   %6d ", student[i].number, student[i].name, student[i].sex,
 			student[i].age, student[i].phone, student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 }
-void kuaipai()
+void quick_sort()
 {
 
 }
