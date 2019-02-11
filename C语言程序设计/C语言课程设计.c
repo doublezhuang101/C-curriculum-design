@@ -19,6 +19,8 @@ void quick_sort(void);//快速排序主函数
 void rank4(void);//插入排序按C语言成绩排序
 void rank5(void);//快速排序按体育成绩排序
 void rank6(void);//快速排序按课程设计成绩排序
+void display(void);//显示学生信息
+void search_menu(void);//查找学生信息菜单
 void EXIT(void);//退出函数
 int count = 0;
 void main()
@@ -87,6 +89,12 @@ void menu()
 		break;
 	case 5:
 		rank_menu();
+		break;
+	case 6:
+		display();
+		break;
+	case 7:
+		search_menu();
 		break;
 	case 8:
 		EXIT();
