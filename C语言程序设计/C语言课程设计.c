@@ -293,7 +293,7 @@ void rank3(void)//©ЛкыеепР
 }
 void quick_sort()
 {
-
+	0.0
 }
 void EXIT(void)
 {
