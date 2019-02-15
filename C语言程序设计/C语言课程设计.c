@@ -140,7 +140,14 @@ void typein()
 }
 void save()
 {
-
+	int i = 0;
+	FILE *fp;
+	fp = fopen("D:\\student.txt", "w+");
+	for (i = 0; i < count; i++)
+		if (fwrite(&student[i], sizeof(STUDENT), 1, fp) != 1)
+			printf("无法保存文件！\n");
+	printf("你已成功保存文件！");
+	fclose(fp);
 }
 void deletemenu(void)
 {
@@ -293,7 +300,7 @@ void rank3(void)//快速排序
 }
 void quick_sort()
 {
-	0.0
+	
 }
 void EXIT(void)
 {
