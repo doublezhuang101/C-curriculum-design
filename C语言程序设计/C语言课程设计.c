@@ -84,7 +84,7 @@ void menu()
 	case 3:
 		deletemenu();
 		break;
-	case 4:
+	/*case 4:
 		revise();
 		break;
 	case 5:
@@ -95,7 +95,7 @@ void menu()
 		break;
 	case 7:
 		search_menu();
-		break;
+		break;*/
 	case 8:
 		EXIT();
 		break;
@@ -107,6 +107,7 @@ void menu()
 }
 void typein()
 {
+	int choice = 0;
 	printf("请输入学号:");
 	scanf("%ld", &student[count].number);
 	printf("请输入姓名:");
@@ -137,6 +138,25 @@ void typein()
 	scanf("%d", &student[count].score5);
 	getchar();
 	count++;
+	printf("	您已输入完成，请选择是否继续输入:\n\t");
+	printf("1.继续输入\n\t");
+	printf("2.返回菜单\n\t");
+	scanf("%d", &choice);
+	getchar();
+	switch (choice)
+	{
+	case 1:
+		typein();
+		break;
+	case 2:
+		menu();
+		break;
+	default:
+		printf("	输入错误，将返回菜单.\n\t");
+		system("pause");
+		menu();
+		break;
+	}
 }
 void save()
 {
@@ -146,8 +166,9 @@ void save()
 	for (i = 0; i < count; i++)
 		if (fwrite(&student[i], sizeof(STUDENT), 1, fp) != 1)
 			printf("无法保存文件！\n");
-	printf("你已成功保存文件！");
+	printf("	你已成功保存文件！\n\t文件位置D:\\sutdent.txt\n");
 	fclose(fp);
+	system("pause");
 }
 void deletemenu(void)
 {
@@ -210,7 +231,7 @@ void rank_menu()
 	printf("	4.按C语言成绩排序\n");
 	printf("	5.按体育成绩排序\n");
 	printf("	6.按课程设计成绩排序\n");
-	suqure();
+	square();
 	printf("	请输入数字:");
 	scanf("%d", &choice);
 	getchar();
@@ -222,7 +243,7 @@ void rank_menu()
 	case 2:
 		rank2();
 		break;
-	case 3:
+	/*case 3:
 		ranke3();
 		break;
 	case 4:
@@ -233,7 +254,7 @@ void rank_menu()
 		break;
 	case 6:
 		rank6();
-		break;
+		break;*/
 	default:
 		system("CLS");
 		printf("	输入错误！请重新输入\n");
