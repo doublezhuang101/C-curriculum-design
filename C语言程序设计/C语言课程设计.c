@@ -431,7 +431,7 @@ void rank3(void)//快速排序
 }
 void quick_sort()
 {
-	
+	loading
 }
 void EXIT(void)
 {
