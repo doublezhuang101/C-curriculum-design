@@ -12,10 +12,9 @@ void deletemenu(void);//删除学生信息菜单
 void delete_number(void);//按学号删除学生信息
 void revise(void);//修改学生信息
 void revise_number(void);//学号修改学生信息
-void swap(int a, int b);//交换两数
 void rank_menu(void);//排序菜单
 void rank1(void);//冒泡排序按学号
-void rank2(void);//选择排序按高数成绩排序
+void rank2(void);//排序按高数成绩排序
 void rank3(void);//快速排序按英语成绩排序
 void quick_sort(int left,int right);//英语快速排序主函数
 void rank4(void);//插入排序按C语言成绩排序
@@ -37,7 +36,7 @@ int count = 0;
 void main()
 {
 	square();
-	printf("	学生信息管理系统\n");
+	printf("     欢迎使用学生信息管理系统\n");
 	printf("	制作人:苗壮\n");
 	square();
 	printf("\t");
@@ -189,7 +188,7 @@ void deletemenu(void)//删除主菜单
 	printf("	1.输入学号选择删除条目\n");
 	printf("	2.取消删除返回上一级菜单\n");
 	square();
-	printf("请输入数字选择：");
+	printf("	请输入数字选择：");
 	scanf("%d", &c);
 	getchar();
 	switch (c)
@@ -392,7 +391,7 @@ void rank1(void)//冒泡排序排学号
 	{
 		flag = 0;
 		for (i = j + 1; i < count; i++)
-			if (student[i].number < student[j].number)
+			if (student[i].number > student[j].number)
 			{
 				t = student[i];
 				student[i] = student[j];
@@ -407,31 +406,29 @@ void rank1(void)//冒泡排序排学号
 				student[i].age, student[i].phone,student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 	getchar();
 }
-void rank2(void)//选择排序排高数
+void rank2(void)//排高数
 {
+
 	int i=0, j=0;
+	STUDENT t;
+	for (j = 0; j < count - 1; j++)
+		for (i = j + 1; i < count; i++)
+			if (student[i].score1 < student[j].score1)
+			{
+				t = student[i];
+				student[i] = student[j];
+				student[j] = t;
+			}
+	printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
 	for (i = 0; i < count; i++)
 	{
-		int max = i; //循环后将第i大的元素放好
-		//记录第i个到第count - 1个元素中，最大的元素的下标
-		for (j = i + 1; j < count; j++)
-		{
-			if (student[j].score1 > student[max].score1)
-				max = j;
-		}
-		//下面将第i大的元素放在第i个位置上，并将原来第i个位置的元素挪到后面
-		int c = student[i].score1;
-		student[i].score1 = student[max].score1;
-		student[max].score1 = c;
+		printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 	}
-	printf("\n学号\t姓名\t性别\t年龄\t手机号码   高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
-	for (i = 0; i < count; i++)
-		printf("\n%ld\t%s\t%s\t%d\t%s   %6d   %4d   %4d   %4d   %6d ", student[i].number, student[i].name, student[i].sex,
-			student[i].age, student[i].phone, student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 }
-void rank3(void)//快速排序英语
+void rank3(void)//排序英语
 {
-	int end = 0;
+	/*int end = 0;
 	for (int i = 0; student[i].score2 != 0; i++)
 		end++;
 	printf("%d", end);
@@ -441,7 +438,23 @@ void rank3(void)//快速排序英语
 		printf("\n%ld\t%s\t%s\t%d\t%s   %4d   %4d   %4d   %4d   %4d ", student[i].number, student[i].name, student[i].sex,
 			student[i].age, student[i].phone, student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 	getchar();
-	menu();
+	menu();*/
+	int i, j;
+	STUDENT t;
+	for (j = 0; j < count - 1; j++)
+		for (i = j + 1; i < count; i++)
+			if (student[i].score2 < student[j].score2)
+			{
+				t = student[i];
+				student[i] = student[j];
+				student[j] = t;
+			}
+	printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+	for (i = 0; i < count; i++)
+	{
+		printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
+	}
 }
 void quick_sort(int left, int right)//英语快排主函数
 {
@@ -449,8 +462,9 @@ void quick_sort(int left, int right)//英语快排主函数
 	if (left > right)
 		return;
 	temp = student[left].score2;//暂存基准数
-	i = left;
-	j = right;
+	int a, b;
+	a = left;
+	b = right;
 	while (i != j)
 	{
 		while (student[j].score2 <= temp && i < j)
@@ -470,17 +484,63 @@ void quick_sort(int left, int right)//英语快排主函数
 	quick_sort(left, i - 1);//递归处理基准数左边的
 	quick_sort(i + 1, right);//递归处理基准数右边的
 }
-void rank4(void)//
+void rank4(void)//排C语言
 {
-
+	int i=0, j=0;
+	STUDENT t;
+	for (j = 0; j < count - 1; j++)
+		for (i = j + 1; i < count; i++)
+			if (student[i].score3 < student[j].score3)
+			{
+				t = student[i];
+				student[i] = student[j];
+				student[j] = t;
+			}
+	printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+	for (i = 0; i < count; i++)
+	{
+		printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
+	}
+	getchar();
 }
-void rank5(void)//
+void rank5(void)//排体育
 {
-
+	int i=0, j=0;
+	STUDENT t;
+	for (j = 0; j < count - 1; j++)
+		for (i = j + 1; i < count; i++)
+			if (student[i].score4 < student[j].score4)
+			{
+				t = student[i];
+				student[i] = student[j];
+				student[j] = t;
+			}
+	printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+	for (i = 0; i < count; i++)
+	{
+		printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
+	}
 }
-void rank6(void)//
+void rank6(void)//排课程设计
 {
-
+	int i=0, j=0;
+	STUDENT t;
+	for (j = 0; j < count - 1; j++)
+		for (i = j + 1; i < count; i++)
+			if (student[i].score5 < student[j].score5)
+			{
+				t = student[i];
+				student[i] = student[j];
+				student[j] = t;
+			}
+	printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+	for (i = 0; i < count; i++)
+	{
+		printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
+	}
 }
 
 void display()
@@ -571,13 +631,13 @@ void search_menu()
 void name_search()
 {
 	char name[20];
-	int flag = 0;//确认是否查询到
-	printf("	请输入查询的姓名");
+	int flag = 0;//用来确认是否查询到
+	printf("	请输入查询的姓名:");
 	scanf("%s", &name);
 	getchar();
 	int i;
 	for (i = 0; i <= count; i++)
-		if (strcmp(student[i].name, name) == 0)
+		if (strcmp(student[i].name, name) == 0)//比较是否相同
 		{
 			flag++;
 			square();
@@ -587,18 +647,20 @@ void name_search()
 			square();
 		}
 	if (flag == 0)
-		printf("	错误！无法查找到匹配数据");
+		printf("	错误！无法查找到匹配数据.即将返回搜索菜单\n");
+	system("pause");
+	search_menu();
 }
 void phone_search()
 {
 	char phone[20];
-	int flag = 0;
-	printf("	请输入查询的手机号码");
+	int flag = 0;//用来确认是否查询到
+	printf("	请输入查询的手机号码:");
 	scanf("%s", &phone);
 	getchar();
 	int i;
 	for (i = 0; i <= count; i++)
-		if (strcmp(student[i].phone, phone) == 0)
+		if (strcmp(student[i].phone, phone) == 0)//比较是否相同
 		{
 			flag++;
 			square();
@@ -608,18 +670,20 @@ void phone_search()
 			square();
 		}
 	if (flag == 0)
-		printf("	错误！无法查找到匹配数据");
+		printf("	错误！无法查找到匹配数据.即将返回搜索菜单\n");
+	system("pause");
+	search_menu();
 }
 void number_search()
 {
-	long int number;
-	int flag = 0;
-	printf("	请输入查询的学号");
+	long int number=0;
+	int flag = 0;//用来确认是否查询到
+	printf("	请输入查询的学号:");
 	scanf("%ld", &number);
 	getchar();
 	int i;
 	for (i = 0; i <= count; i++)
-		if (student[i].number == number)
+		if (student[i].number == number)//比较是否相等
 		{
 			flag++;
 			square();
@@ -629,18 +693,20 @@ void number_search()
 			square();
 		}
 	if (flag == 0)
-		printf("	错误！无法查找到匹配数据");
+		printf("	错误！无法查找到匹配数据.即将返回搜索菜单\n");
+	system("pause");
+	search_menu();
 }
 void age_search()
 {
-	int age;
-	int flag = 0;
-	printf("	请输入查询的年龄");
+	int age=0;
+	int flag = 0;//用来确认是否查询到
+	printf("	请输入查询的年龄:");
 	scanf("%d", &age);
 	getchar();
 	int i;
 	for (i = 0; i <= count; i++)
-		if (student[i].age == age)
+		if (student[i].age == age)//比较是否相等
 		{
 			flag++;
 			square();
@@ -650,18 +716,20 @@ void age_search()
 			square();
 		}
 	if (flag == 0)
-		printf("	错误！无法查找到匹配数据");
+		printf("	错误！无法查找到匹配数据.即将返回搜索菜单\n");
+	system("pause");
+	search_menu();
 }
 void score1_search()
 {
-	int score1;
-	int flag = 0;
-	printf("	请输入查询的高等数学成绩");
+	int score1=0;
+	int flag = 0;//用来确认是否查询到
+	printf("	请输入查询的高等数学成绩:");
 	scanf("%d", &score1);
 	getchar();
 	int i;
 	for (i = 0; i <= count; i++)
-		if (student[i].score1 == score1)
+		if (student[i].score1 == score1)//比较是否相等
 		{
 			flag++;
 			square();
@@ -671,38 +739,45 @@ void score1_search()
 			square();
 		}
 	if (flag == 0)
-		printf("	错误！无法查找到匹配数据");
+		printf("	错误！无法查找到匹配数据.即将返回搜索菜单\n");
+	system("pause");
+	search_menu();
 }
 void score2_search()
 {
-	int score2;
-	int flag = 0;
+	int score2=0;
+	int flag = 0;//用来确认是否查询到
 	printf("	请输入查询的英语成绩:");
 	scanf("%d", &score2);
 	getchar();
 	int i;
 	for (i = 0; i <= count; i++)
 	{
-		flag++;
-		square();
-		printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
-		printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
-			student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
-		square();
+		if (student[i].score2 == score2)//比较是否相等
+		{
+			flag++;
+			square();
+			printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+			printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+				student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
+			square();
+		}
 	}
 	if (flag == 0)
-		printf("	错误！无法查找到匹配数据");
+		printf("	错误！无法查找到匹配数据.即将返回搜索菜单\n");
+	system("pause");
+	search_menu();
 }
 void score3_search()
 {
 	int score3;
-	int flag = 0;
-	printf("	请输入查询的C语言成绩");
+	int flag = 0;//用来确认是否查询到
+	printf("	请输入查询的C语言成绩:");
 	scanf("%d", &score3);
 	getchar();
 	int i;
 	for (i = 0; i <= count; i++)
-		if (student[i].score3 == score3)
+		if (student[i].score3 == score3)//比较是否相等
 		{
 			flag++;
 			square();
@@ -712,18 +787,20 @@ void score3_search()
 			square();
 		}
 	if (flag == 0)
-		printf("	错误！无法查找到匹配数据");
+		printf("	错误！无法查找到匹配数据.即将返回搜索菜单\n");
+	system("pause");
+	search_menu();
 }
 void score4_search()
 {
 	int score4;
-	int flag = 0;
-	printf("	请输入查询的体育成绩");
+	int flag = 0;//用来确认是否查询到
+	printf("	请输入查询的体育成绩:");
 	scanf("%d", &score4);
 	getchar();
 	int i;
 	for (i = 0; i <= count; i++)
-		if (student[i].score4 == score4)
+		if (student[i].score4 == score4)//比较是否相等
 		{
 			flag++;
 			square();
@@ -733,18 +810,20 @@ void score4_search()
 			square();
 		}
 	if (flag == 0)
-		printf("	错误！无法查找到匹配数据");
+		printf("	错误！无法查找到匹配数据.即将返回搜索菜单\n");
+	system("pause");
+	search_menu();
 }
 void score5_search()
 {
 	int score5;
-	int flag = 0;
-	printf("	请输入查询的课程设计成绩");
+	int flag = 0;;//用来确认是否查询到
+	printf("	请输入查询的课程设计成绩:");
 	scanf("%d", &score5);
 	getchar();
 	int i;
 	for (i = 0; i <= count; i++)
-		if (student[i].score5 == score5)
+		if (student[i].score5 == score5)//比较是否相等
 		{
 			flag++;
 			square();
@@ -754,7 +833,9 @@ void score5_search()
 			square();
 		}
 	if (flag == 0)
-		printf("	错误！无法查找到匹配数据");
+		printf("	错误！无法查找到匹配数据.即将返回搜索菜单\n");
+	system("pause");
+	search_menu();
 }
 void EXIT(void)
 {
