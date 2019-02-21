@@ -2,12 +2,15 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
+#include<Windows.h>
 #define line 17
 #define MAX 50//学生人数
+void color(short x);//调整颜色函数
 void square(void);//打印line数量个方框
 void menu(void);//开始菜单
 void typein(void);//学生信息录入
 void save(void);//保存学生信息
+void save2(void);//及时保存函数
 void deletemenu(void);//删除学生信息菜单
 void delete_number(void);//按学号删除学生信息
 void revise(void);//修改学生信息
@@ -21,6 +24,7 @@ void rank4(void);//插入排序按C语言成绩排序
 void rank5(void);//快速排序按体育成绩排序
 void rank6(void);//快速排序按课程设计成绩排序
 void display(void);//显示学生信息
+void display2(void);//程序开始时将文件读取到内存中
 void search_menu(void);//查找学生信息菜单
 void name_search(void);//查询-姓名
 void phone_search(void);//查询-手机号码
@@ -33,6 +37,13 @@ void score4_search(void);//查询-体育
 void score5_search(void);//查询-课设
 void EXIT(void);//退出函数
 int count = 0;
+void color(short x) //自定义函根据参数改变颜色   
+{
+	if (x >= 0 && x <= 15)//参数在0-15的范围颜色  
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), x);    //只有一个参数，改变字体颜色   
+	else//默认的颜色白色  
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+}
 void main()
 {
 	square();
@@ -40,6 +51,7 @@ void main()
 	printf("	制作人:苗壮\n");
 	square();
 	printf("\t");
+	display2();
 	system("pause");
 	system("CLS");
 	menu();
@@ -62,7 +74,11 @@ void square(void)
 {
 	int i = 0;
 	for (i = 0; i < line; i++)
+	{
+		color(3);
 		printf("%2c", 4);
+		color(15);
+	}
 	printf("\n");
 }
 void menu()//主菜单
@@ -143,6 +159,7 @@ void typein()//输入函数
 	printf("请输入课程设计成绩:");
 	scanf("%d", &student[count].score5);
 	count++;
+	save2();
 	printf("	您已输入完成，请选择是否继续输入:\n\t");
 	printf("1.继续输入\n\t");
 	printf("2.返回菜单\n\t");
@@ -174,6 +191,16 @@ void save()//保存文件
 	printf("	你已成功保存文件！\n\t文件位置D:\\sutdent.txt\n");
 	fclose(fp);
 	system("pause");
+}
+void save2()//及时保存函数
+{
+	int i = 0;
+	FILE *fp;
+	fp = fopen("D:\\student.txt", "w+");
+	for (i = 0; i < count; i++)
+		if (fwrite(&student[i], sizeof(STUDENT), 1, fp) != 1)
+			printf("无法保存文件！\n");
+	fclose(fp);
 }
 void deletemenu(void)//删除主菜单
 {
@@ -215,6 +242,7 @@ void delete_number(void)//按学号删除函数
 			printf("已经成功删除！");
 			match++;
 		}
+	save2();
 	printf("	将返回主菜单\n\t");
 	system("pause");
 	menu();
@@ -265,8 +293,8 @@ void revise_number()//按学号编辑函数
 			match++;
 			square();
 			printf("	查找到的学生信息\n");
-			printf("学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
-			printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			printf("学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+			printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 				student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 			printf("	输入数字选择要更改的内容\n");
 			printf("	0.放弃修改并返回上一级菜单\n");
@@ -290,38 +318,47 @@ void revise_number()//按学号编辑函数
 			case 1:
 				printf("将修改姓名为:");
 				scanf("%s", &student[i].name);
+				save2();
 				break;
 			case 2:
 				printf("将修改性别为:");
 				scanf("%s", &student[i].sex);
+				save2();
 				break;
 			case 3:
 				printf("将修改年龄为:");
 				scanf("%d", &student[i].age);
+				save2();
 				break;
 			case 4:
 				printf("将修改手机号码为:");
 				scanf("%s", &student[i].phone);
+				save2();
 				break;
 			case 5:
 				printf("将修改高等数学成绩为:");
 				scanf("%d", &student[i].score1);
+				save2();
 				break;
 			case 6:
 				printf("将修改英语成绩为:");
 				scanf("%d", &student[i].score2);
+				save2();
 				break;
 			case 7:
 				printf("将修改C语言成绩为:");
 				scanf("%d", &student[i].score3);
+				save2();
 				break;
 			case 8:
 				printf("将修改体育成绩为:");
 				scanf("%d", &student[i].score4);
+				save2();
 				break;
 			case 9:
 				printf("将修改课程设计为:");
 				scanf("%d", &student[i].score5);
+				save2();
 				break;
 			default:
 				{
@@ -420,10 +457,10 @@ void rank2(void)//排高数
 				student[i] = student[j];
 				student[j] = t;
 			}
-	printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+	printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
 	for (i = 0; i < count; i++)
 	{
-		printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+		printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 			student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 	}
 	printf("	将返回主菜单\n\t");
@@ -453,10 +490,10 @@ void rank3(void)//排序英语
 				student[i] = student[j];
 				student[j] = t;
 			}
-	printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+	printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
 	for (i = 0; i < count; i++)
 	{
-		printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+		printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 			student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 	}
 	printf("	将返回主菜单\n\t");
@@ -503,10 +540,10 @@ void rank4(void)//排C语言
 				student[i] = student[j];
 				student[j] = t;
 			}
-	printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+	printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
 	for (i = 0; i < count; i++)
 	{
-		printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+		printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 			student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 	}
 	getchar();
@@ -523,10 +560,10 @@ void rank5(void)//排体育
 				student[i] = student[j];
 				student[j] = t;
 			}
-	printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+	printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
 	for (i = 0; i < count; i++)
 	{
-		printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+		printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 			student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 	}
 	printf("	将返回主菜单\n\t");
@@ -545,17 +582,17 @@ void rank6(void)//排课程设计
 				student[i] = student[j];
 				student[j] = t;
 			}
-	printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+	printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
 	for (i = 0; i < count; i++)
 	{
-		printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+		printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 			student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 	}
 	printf("	将返回主菜单\n\t");
 	system("pause");
 	menu();
 }
-void display()
+void display()//显示学生信息
 {
 	int i;
 	FILE *fp;
@@ -570,12 +607,14 @@ void display()
 	}
 	else
 	{
-		printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n"); 
+		printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n"); 
 		i = 0;
 		while (fread(&student[i], sizeof(STUDENT), 1, fp)==1)//如果读到数据，就显示；否则退出
 		{
-			printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 				student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
+			fscanf(fp, "%ld %s %s %d %s      %d          %d         %d           %d          %d", &student[i].number, &student[i].name, &student[i].sex, &student[i].age, &student[i].phone,
+				&student[i].score1, &student[i].score2, &student[i].score3, &student[i].score4, &student[i].score5);
 		}
 	}
 	getchar();
@@ -583,7 +622,24 @@ void display()
 	system("pause");
 	menu();
 }
-void search_menu()
+void display2()//程序开始时读取文件到内存
+{
+	int i;
+	FILE *fp;
+	fp = fopen("D:\\student.txt", "r+");
+	if (fp == NULL)
+		;
+	else
+	{
+		i = 0;
+		while (fread(&student[i], sizeof(STUDENT), 1, fp) == 1)//如果读到数据，就显示；否则退出
+		{
+			fscanf(fp, "%ld %s %s %d %s      %d          %d         %d           %d          %d", &student[i].number, &student[i].name, &student[i].sex, &student[i].age, &student[i].phone,
+				&student[i].score1, &student[i].score2, &student[i].score3, &student[i].score4, &student[i].score5);
+		}
+	}
+}
+void search_menu()//查询主菜单
 {
 	square();
 	printf("	请输入数字选择查询方式：\n");
@@ -642,7 +698,7 @@ void search_menu()
 		}
 	}
 }
-void name_search()
+void name_search()//查询姓名
 {
 	char name[20];
 	int flag = 0;//用来确认是否查询到
@@ -655,8 +711,8 @@ void name_search()
 		{
 			flag++;
 			square();
-			printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
-			printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+			printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 				student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 			square();
 			printf("	将返回主菜单\n\t");
@@ -668,7 +724,7 @@ void name_search()
 	system("pause");
 	search_menu();
 }
-void phone_search()
+void phone_search()//查询手机号
 {
 	char phone[20];
 	int flag = 0;//用来确认是否查询到
@@ -681,8 +737,8 @@ void phone_search()
 		{
 			flag++;
 			square();
-			printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
-			printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+			printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 				student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 			square();
 			printf("	将返回主菜单\n\t");
@@ -694,7 +750,7 @@ void phone_search()
 	system("pause");
 	search_menu();
 }
-void number_search()
+void number_search()//查询学号
 {
 	long int number=0;
 	int flag = 0;//用来确认是否查询到
@@ -707,8 +763,8 @@ void number_search()
 		{
 			flag++;
 			square();
-			printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
-			printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+			printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 				student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 			square();
 			printf("	将返回主菜单\n\t");
@@ -720,7 +776,7 @@ void number_search()
 	system("pause");
 	search_menu();
 }
-void age_search()
+void age_search()//查询年龄
 {
 	int age=0;
 	int flag = 0;//用来确认是否查询到
@@ -733,8 +789,8 @@ void age_search()
 		{
 			flag++;
 			square();
-			printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
-			printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+			printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 				student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 			square();
 			printf("	将返回主菜单\n\t");
@@ -746,7 +802,7 @@ void age_search()
 	system("pause");
 	search_menu();
 }
-void score1_search()
+void score1_search()//查询高数成绩
 {
 	int score1=0;
 	int flag = 0;//用来确认是否查询到
@@ -759,8 +815,8 @@ void score1_search()
 		{
 			flag++;
 			square();
-			printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
-			printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+			printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 				student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 			square();
 			printf("	将返回主菜单\n\t");
@@ -772,7 +828,7 @@ void score1_search()
 	system("pause");
 	search_menu();
 }
-void score2_search()
+void score2_search()//查询英语成绩
 {
 	int score2=0;
 	int flag = 0;//用来确认是否查询到
@@ -786,8 +842,8 @@ void score2_search()
 		{
 			flag++;
 			square();
-			printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
-			printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+			printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 				student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 			square();
 			printf("	将返回主菜单\n\t");
@@ -800,7 +856,7 @@ void score2_search()
 	system("pause");
 	search_menu();
 }
-void score3_search()
+void score3_search()//查询C语言成绩
 {
 	int score3;
 	int flag = 0;//用来确认是否查询到
@@ -813,8 +869,8 @@ void score3_search()
 		{
 			flag++;
 			square();
-			printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
-			printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+			printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 				student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 			square();
 			printf("	将返回主菜单\n\t");
@@ -826,7 +882,7 @@ void score3_search()
 	system("pause");
 	search_menu();
 }
-void score4_search()
+void score4_search()//查询体育成绩
 {
 	int score4;
 	int flag = 0;//用来确认是否查询到
@@ -839,8 +895,8 @@ void score4_search()
 		{
 			flag++;
 			square();
-			printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
-			printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+			printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 				student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 			square();
 			printf("	将返回主菜单\n\t");
@@ -852,7 +908,7 @@ void score4_search()
 	system("pause");
 	search_menu();
 }
-void score5_search()
+void score5_search()//查询课程设计成绩
 {
 	int score5;
 	int flag = 0;;//用来确认是否查询到
@@ -865,8 +921,8 @@ void score5_search()
 		{
 			flag++;
 			square();
-			printf("\n学号\t\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
-			printf("\n%ld\t%s %s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
+			printf("\n学号\t姓名\t性别\t年龄\t手机号码\t高等数学成绩   英语成绩   C语言成绩   体育成绩   课程设计成绩\n");
+			printf("\n%ld\t%s\t%s\t%d\t%s\t     %d          %d         %d           %d          %d ", student[i].number, student[i].name, student[i].sex, student[i].age, student[i].phone,
 				student[i].score1, student[i].score2, student[i].score3, student[i].score4, student[i].score5);
 			square();
 			printf("	将返回主菜单\n\t");
@@ -878,7 +934,7 @@ void score5_search()
 	system("pause");
 	search_menu();
 }
-void EXIT(void)
+void EXIT(void)//退出函数
 {
 	int a;
 	square();
@@ -893,6 +949,7 @@ void EXIT(void)
 	{
 	case 1:
 		printf("	感谢你的使用，谢谢！\n");
+		save2();//退出前保存
 		system("pause");
 		exit(0);
 		break;
