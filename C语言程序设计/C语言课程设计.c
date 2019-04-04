@@ -11,6 +11,7 @@ void save(void);//保存学生信息
 void deletemenu(void);//删除学生信息菜单
 void delete_number(void);//按学号删除学生信息
 void revise(void);//修改学生信息
+void revise_number(void);//按学号修改学生信息
 void rank_menu(void);//排序菜单
 void rank1(void);//冒泡排序按学号
 void rank2(void);//选择排序按高数成绩排序
@@ -218,7 +219,48 @@ void delete_number(void)
 }
 void revise(void)
 {
+	int choice;
+	square();
+	printf("	请输入数字选择功能\n");
+	printf("	1.输入学号查找编辑对象\n");
+	printf("	2.返回上一级菜单\n");
+	square();
+	printf("	请输入数字选择");
+	scanf("%d", &choice);
+	getchar();
+	switch (choice)
+	{
+	case 1:
+		revise_number(); 
+		break;
+	case 2:
+		menu(); 
+		break;
+	default:
+	{
+		printf("	输入错误！即将返回主菜单\n");
+		system("pause");
+		menu();
+	}
+	}
+}
+void revise_number(void)
+{
+	long int number = 0;
+	int flag = 0;
+	int choice = 0;
+	printf("	请输入学号:");
+	scanf("%d", &choice);
+	getchar();
+	int i = 0;
+	for(i=0;i<=count;i++)
+		if (student[i].number == number)
+		{
+			square();
+			printf("	查找到的学生信息:");
 
+			square();
+		}
 }
 void rank_menu()
 {
@@ -322,6 +364,30 @@ void rank3(void)//快速排序
 void quick_sort()
 {
 	
+}
+void search_menu(void)
+{
+	int choice = 0;
+	square();
+	printf("	请输入数字进行查询选择:\n");
+	printf("1.学号查询\n");
+	printf("2.姓名查询\n");
+	printf("3.年龄查询\n");
+	printf("4.手机号码查询\n");
+	printf("5.数学成绩查询\n");
+	printf("6.英语成绩查询\n");
+	printf("7.C语言成绩查询\n");
+	printf("8.体育成绩查询\n");
+	printf("9.课程设计成绩查询\n");
+	printf("10.返回上一级菜单\n");
+	square();
+	switch (choice)
+	{
+	case 1:
+			
+	default:
+		break;
+	}
 }
 void EXIT(void)
 {
